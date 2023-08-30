@@ -1,0 +1,85 @@
+version: '3'
+services:
+
+  middleware:
+    build: back/
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://127.0.0.1:12201"
+    depends_on:
+      - postgresql
+    networks:
+      - reverse-proxy
+
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./utils/default.conf:/etc/nginx/conf.d/default.conf
+      - ./utils/www:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - middleware
+      - kibana
+    networks:
+      - reverse-proxy
+  
+  postgresql:
+    image: postgres:15.1
+    command: [ "postgres" ]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: z021d9f-48CoXt9
+      POSTGRES_DB: togepic
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres-data1:/var/lib/postgresql/data
+    networks:
+      - reverse-proxy
+  swagger:
+    image: swaggerapi/swagger-ui
+    depends_on:
+      middleware:
+        condition: service_started
+    environment:
+      SWAGGER_JSON: /docs/swagger.yml
+    volumes:
+      - ./back/src/main/webapp/doc:/docs
+    networks:
+      - reverse-proxy
+  kibana:
+    image: kibana:8.6.1
+    environment:
+      - SERVER_BASEPATH=/kibana
+      - SERVER_PORT=9000
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - reverse-proxy
+  elasticsearch:
+    image: elasticsearch:8.6.1
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    volumes:
+      - elastic-data:/usr/share/elasticsearch/data
+    networks:
+      - reverse-proxy
+  logstash:
+    image: logstash:8.6.1
+    ports:
+      - "12201:12201"
+      - "12201:12201/udp"
+    volumes:
+      - ./utils/gelf.conf:/conf/gelf.conf
+    command: logstash -f /conf/gelf.conf
+    networks:
+      - reverse-proxy
+networks:
+  reverse-proxy:
+volumes:
+  elastic-data:
+  postgres-data1:

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/pink_togepic</item>
+    </style>
+    <style name="MyImageButtonStyle">
+        <item name="backgroundTint">@color/blue_togepic</item>
+        <item name="android:tint">@color/pink_togepic</item>
+        <item name="android:padding">@dimen/_15sdp</item>
+    </style>
+</resources>

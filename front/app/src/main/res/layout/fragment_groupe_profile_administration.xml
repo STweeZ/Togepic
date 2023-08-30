@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.ProfileModification"
+    android:id="@+id/linearLayoutGroupeProfileAdministration"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingLeft="@dimen/_24sdp"
+    android:paddingRight="@dimen/_24sdp"
+    android:paddingBottom="@dimen/_24sdp">
+
+
+    <FrameLayout
+        android:id="@+id/administrationGroupeFrameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/inputGroupePicture"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:background="@drawable/image_background"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            android:contentDescription="@string/user_picture" />
+
+        <ImageView
+            android:id="@+id/modifyGroupeProfilePictureText"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_photo_camera_24"
+            app:tint="@color/light_gray_togepic" />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/bio"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/administrationGroupeFrameLayout" />
+
+    <EditText
+        android:id="@+id/inputGroupeBioModify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asapmedium"
+        android:gravity="center_vertical|start"
+        android:hint="@string/groupe_bio"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLength="@integer/material_motion_duration_short_1"
+        android:maxLines="3"
+        android:minLines="1"
+        android:textColorHint="@color/light_gray_togepic"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/name"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputGroupeBioModify" />
+
+    <EditText
+        android:id="@+id/inputGroupeNameModify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/asapmedium"
+        android:hint="@string/default_group"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/light_gray_togepic"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/saveProfileModification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:backgroundTint="@color/pink_togepic"
+        android:fontFamily="@font/asapbold"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputGroupeNameModify" />
+
+    <Button
+        android:id="@+id/deleteGroupeButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:backgroundTint="@color/red_danger_togepic"
+        android:fontFamily="@font/asapbold"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveProfileModification" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_marginTop="@dimen/_10ssp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="@string/search_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteGroupeButton" />
+
+    <TextView
+        android:id="@+id/invitationInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asapmedium"
+        android:layout_marginTop="@dimen/_55ssp"
+        android:text="@string/no_invitation_yet"
+        android:textColor="@color/sand_togepic"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintBottom_toTopOf="@+id/groupeInvitation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <ListView
+        android:id="@+id/groupeInvitation"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:layout_marginStart="@dimen/_15ssp"
+        android:layout_marginTop="@dimen/_55ssp"
+        android:layout_marginBottom="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <ListView
+        android:id="@+id/listUser"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        android:background="@color/white"
+        android:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

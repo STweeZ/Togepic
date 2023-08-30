@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.ProfileInvitation"
+    android:id="@+id/linearLayoutGroupeProfileInformation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingLeft="@dimen/_24sdp"
+    android:paddingRight="@dimen/_24sdp"
+    android:paddingBottom="@dimen/_24sdp">
+
+    <FrameLayout
+        android:id="@+id/informationGroupeFrameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/groupePicture"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:background="@drawable/image_background"
+            android:contentDescription="@string/user_picture"
+            android:scaleType="centerCrop"
+            app:riv_oval="true" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/bio"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/informationGroupeFrameLayout" />
+
+    <TextView
+        android:id="@+id/groupeBio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/groupe_bio"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/name"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupeBio" />
+
+    <TextView
+        android:id="@+id/groupeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/default_group"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/quitGroupButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:backgroundTint="@color/red_danger_togepic"
+        android:fontFamily="@font/asapbold"
+        android:text="@string/quit"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupeName" />
+
+    <TextView
+        android:id="@+id/invitationInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/no_member_yet"
+        android:layout_marginTop="@dimen/_35ssp"
+        android:textColor="@color/sand_togepic"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintBottom_toTopOf="@+id/groupeMember"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quitGroupButton" />
+
+    <ListView
+        android:id="@+id/groupeMember"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:elevation="4dp"
+        android:layout_marginBottom="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quitGroupButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:id="@+id/joinCall"
+    android:text="REJOINDRE LA VIDEO"
+    android:layout_marginTop="5sp"
+    android:textSize="20dp"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:backgroundTint="@color/red_danger_togepic"
+    >
+
+</Button>

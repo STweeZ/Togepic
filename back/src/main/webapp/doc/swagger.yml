@@ -1,0 +1,883 @@
+openapi: 3.0.0
+info:
+  title: "Togepic"
+  description: "Project - 2nd year of Master"
+  version: "1.0.0"
+  termsOfService: ""
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+security:
+  - bearerAuth: []
+
+servers:
+  - url: "http://{host-port}/togepic/"
+    variables:
+      host-port:
+        enum:
+          - localhost:8000
+        default: localhost:8000
+
+tags:
+  - name: Login
+    description: API to log in
+  - name: User
+    description: Everything about Users
+  - name: Groupe
+    description: Everything about Groupes
+
+paths:
+  /login:
+    post:
+      summary: Log in
+      tags:
+        - Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginDTO'
+      responses:
+        200:
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        409:
+          description: Wrong credentials
+  /users:
+    post:
+      summary: Create a user
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateDTO'
+      responses:
+        200:
+          description: Successfully created user
+        400:
+          $ref: '#/components/responses/InvalidData'
+        409:
+          description: Email address already exists
+    get:
+      summary: Get all users
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserMediumDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /users/{id}:
+    put:
+      summary: Update the user with the given id
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDTO'
+      responses:
+        200:
+          description: Successfully modified user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+    get:
+      summary: Get the user with the given id
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully retrieve user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRetrieveDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+    delete:
+      summary: Delete the user with the given id
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully delete user
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+  /users/{id}/groupes:
+    get:
+      summary: Get groups of the user
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully get groupes of the user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupeDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+  /users/{id}/invitations:
+    get:
+      summary: Get invitations of the user
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully get invitations of the user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvitationDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+  /users/{uid}/groupes/{gid}:
+    post:
+      summary: Send request to a groupe
+      tags:
+        - User
+      parameters:
+        - name: uid
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: id of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully send request to the groupe
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          description: User already has a role
+        409:
+          description: User does not exist
+    delete:
+      summary: Refuse request from a groupe
+      tags:
+        - User
+      parameters:
+        - name: uid
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: id of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully refuse request from the groupe
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: User does not exist
+  /users/verify:
+    post:
+      summary: Verify email address
+      tags:
+        - User
+      responses:
+        204:
+          description: Successfully verified email address
+        400:
+          description: Invalid token
+        409:
+          description: Token has expired or email already verified
+  /users/newToken:
+    post:
+      summary: Generate new verification token
+      tags:
+        - User
+      responses:
+        204:
+          description: Successfully generated new verification token
+        400:
+          description: Invalid token
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: Email already verified or user does not exist
+  /groupes:
+    post:
+      summary: Create a groupe
+      tags:
+        - Groupe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupeCreateDTO'
+      responses:
+        200:
+          description: Successfully created groupe
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          description: 'Your account must be verified'
+    get:
+      summary: Get all groupes
+      tags:
+        - Groupe
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of all groupes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupeRetrieveDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+  /groupes/{id}:
+    put:
+      summary: Update the groupe with the given id
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupeUpdateDTO'
+      responses:
+        200:
+          description: Successfully modified groupe information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupeRetrieveDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          $ref: '#/components/responses/NotExist'
+    get:
+      summary: Get the groupe with the given id
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully retrieve groupe information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupeDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        409:
+          description: Groupe does not exist
+    delete:
+      summary: Delete the groupe with the given id
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully delete groupe
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe does not exist
+  /groupes/{gid}/users/{uid}:
+    put:
+      summary: Modify a user role in a groupe
+      tags:
+        - Groupe
+      parameters:
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+        - name: uid
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberLightDTO'
+      responses:
+        200:
+          description: Successfully modify user role
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          $ref: '#/components/responses/NotExist'
+    post:
+      summary: Invite a user to a groupe
+      tags:
+        - Groupe
+      parameters:
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+        - name: uid
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully invite user
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          $ref: '#/components/responses/NotExist'
+    delete:
+      summary: Remove a user from a groupe or refuse request
+      tags:
+        - Groupe
+      parameters:
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+        - name: uid
+          in: path
+          schema:
+            type: integer
+          description: login of user to use
+          required: true
+      responses:
+        200:
+          description: Successfully remove user or invitation
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          $ref: '#/components/responses/NotExist'
+  /groupes/{id}/users:
+    get:
+      summary: Get users of the groupe
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully get users of the groupe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MemberDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe does not exist
+  /groupes/{id}/invitations:
+    get:
+      summary: Get invitations of the groupe
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully get invitations of the groupe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvitationDTO'
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe does not exist
+  /groupes/{id}/posts:
+    post:
+      summary: Create a post
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreateDTO'
+      responses:
+        200:
+          description: Successfully create post
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe does not exist
+  /groupes/{gid}/posts/{pid}:
+    put:
+      summary: Modify a post
+      tags:
+        - Groupe
+      parameters:
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+        - name: pid
+          in: path
+          schema:
+            type: integer
+          description: login of post to use
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUpdateDTO'
+      responses:
+        200:
+          description: Successfully modify post
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe or post does not exist
+    delete:
+      summary: Delete a post
+      tags:
+        - Groupe
+      parameters:
+        - name: gid
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+        - name: pid
+          in: path
+          schema:
+            type: integer
+          description: login of post to use
+          required: true
+      responses:
+        200:
+          description: Successfully delete post
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe or post does not exist
+  /groupes/{id}/pictures:
+    get:
+      summary: Get pictures of the groupe
+      tags:
+        - Groupe
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          description: login of groupe to use
+          required: true
+      responses:
+        200:
+          description: Successfully get pictures of the groupe
+        400:
+          $ref: '#/components/responses/InvalidData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        409:
+          description: Groupe does not exist
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    GroupeCreateDTO:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        picture:
+          type: string
+        isPrivate:
+          type: boolean
+    GroupeDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        picture:
+          type: string
+        isPrivate:
+          type: boolean
+        posts:
+          type: array
+          items:
+            type: object
+        nbUser:
+          type: integer
+        role:
+          type: integer
+    GroupeRetrieveDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        picture:
+          type: string
+        isPrivate:
+          type: boolean
+    GroupeUpdateDTO:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        picture:
+          type: string
+        isPrivate:
+          type: boolean
+    InvitationDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        picture:
+          type: string
+    MemberDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        picture:
+          type: string
+        role:
+          type: string
+    MemberLightDTO:
+      type: object
+      required:
+        - role
+      properties:
+        role:
+          type: string
+    PostCreateDTO:
+      type: object
+      required:
+        - text
+      properties:
+        parent:
+          type: object
+        text:
+          type: string
+        pictures:
+          type: array
+          items:
+            type: object
+    PostUpdateDTO:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+    UserCreateDTO:
+      type: object
+      required:
+        - email
+        - password
+        - name
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        picture:
+          type: string
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        name:
+          type: string
+        registration:
+          type: string
+        emailVerified:
+          type: boolean
+        picture:
+          type: string
+        description:
+          type: string
+        token:
+          type: string
+    UserLoginDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    UserMediumDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        picture:
+          type: string
+    UserRetrieveDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        picture:
+          type: string
+    UserUpdateDTO:
+      type: object
+      required:
+        - email
+        - password
+        - name
+        - picture
+        - description
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        picture:
+          type: string
+        description:
+          type: string
+
+  responses:
+    InvalidData:
+      description: Invalid input data
+    Unauthorized:
+      description: You are disconnected
+    Forbidden:
+      description: You are not part of the groupe
+    NotExist:
+      description: Groupe does not exist or user does not exist

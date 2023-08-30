@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activities.SignInActivity"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/groupeAppBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/groupe_profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:theme="@style/ToolbarTheme"
+            >
+                <TextView
+                    android:id="@+id/groupe_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/default_group_name"
+                    android:fontFamily="@font/quicksandbold"
+                    android:textColor="@color/sand_togepic"
+                    android:textSize="@dimen/_20sdp"
+                />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RadioGroup
+            android:id="@+id/groupeRadioGroup"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/_24sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupeAppBarLayout">
+
+            <RadioButton
+                android:id="@+id/radioButtonInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_segmented_left"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/information"
+                android:checked="true"
+                android:textColor="@drawable/txt_segmented" />
+
+            <RadioButton
+                android:id="@+id/radioButtonAdministration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_segmented_right"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/administration"
+                android:textColor="@drawable/txt_segmented" />
+        </RadioGroup>
+
+        <FrameLayout android:id="@+id/groupe_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupeRadioGroup" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

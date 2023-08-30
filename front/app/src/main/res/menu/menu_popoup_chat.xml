@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Prendre une photo" android:id="@+id/takePicture" />
+    <item android:title="Joindre des fichiers" android:id="@+id/addPicture"/>
+    <item android:title="Appel vidéo" android:id="@+id/call"/>
+</menu>

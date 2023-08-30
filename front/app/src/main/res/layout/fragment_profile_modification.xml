@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.ProfileModification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingLeft="@dimen/_24sdp"
+    android:paddingRight="@dimen/_24sdp"
+    android:paddingBottom="@dimen/_24sdp">
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/inputPicture"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:background="@drawable/image_background"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            android:contentDescription="@string/user_picture" />
+
+        <ImageView
+            android:id="@+id/modifyProfilePictureText"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_photo_camera_24"
+            app:tint="@color/light_gray_togepic" />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/bio"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <EditText
+        android:id="@+id/inputBioModify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asapmedium"
+        android:gravity="center_vertical|start"
+        android:hint="@string/your_bio"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLength="@integer/material_motion_duration_short_1"
+        android:maxLines="3"
+        android:minLines="1"
+        android:textColorHint="@color/light_gray_togepic"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/name"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <EditText
+        android:id="@+id/inputNameModify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/asapmedium"
+        android:hint="@string/your_name"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/light_gray_togepic"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/e_mail"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <EditText
+        android:id="@+id/inputMailModify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/asapmedium"
+        android:hint="@string/your_e_mail"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/light_gray_togepic"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/password"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <EditText
+        android:id="@+id/inputPasswordModify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/asapmedium"
+        android:hint="@string/empty"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/password_verification"
+        android:textColor="@color/blue_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <EditText
+        android:id="@+id/inputSecondPasswordModify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/asapmedium"
+        android:hint="@string/empty"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textSize="@dimen/_13ssp" />
+
+    <Button
+        android:id="@+id/saveProfileModification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:backgroundTint="@color/pink_togepic"
+        android:fontFamily="@font/asapbold"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_5sdp" />
+
+    <TextView
+        android:id="@+id/verificationEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/asapmedium"
+        android:text="@string/send_verification_email"
+        android:textColor="@color/pink_togepic"
+        android:textSize="@dimen/_10ssp" />
+
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:backgroundTint="@color/red_danger_togepic"
+        android:fontFamily="@font/asapbold"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_5sdp" />
+</LinearLayout>
